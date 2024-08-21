@@ -22,8 +22,8 @@ async function run() {
     console.log('Conexão bem-sucedida!');
 
     // Execute alguma consulta para testar
-    const result = await connection.execute(`SELECT dt_atendimento FROM dbamv.atendime where cd_atendimento = 654`);
-    console.log(result.rows[0][0]);
+    const result = await connection.execute(`SELECT dt_atendimento, cd_atendimento FROM dbamv.atendime where cd_atendimento = 654`);
+    console.log(result.rows[0]);
 
   } catch (err) {
     console.error('Erro ao conectar ao banco de dados:', err);
