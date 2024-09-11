@@ -7,7 +7,7 @@ const config = {
 };
 
 // Necessário para a versão atual do banco Oracle
-oracledb.initOracleClient({ libDir: 'C:\\oracle\\instantclient_21_12' });
+oracledb.initOracleClient({ libDir: '' });
 
 async function connectToOracle() {
   let connection;
