@@ -6,34 +6,44 @@ Este projeto é uma aplicação Node.js projetada para integrar com um banco de 
 - src/mt-query.js: Fornece funções para executar consultas SQL.
 - src/mt-exec.js: Inclui funções para inserir dados no banco de dados usando procedimentos PL/SQL.
 - src/f-query.js: Define funções para formatar consultas SQL.
+  
 ## Configuração
-Edite o arquivo src/conn.js para configurar os parâmetros de conexão com o banco de dados.
+Edite o arquivo **src/conn.js** para configurar os parâmetros de conexão com o banco de dados.
+~~~javascript
+const config = {
+  user: '', // Usuario do banco
+  password: '', //Senha do banco
+  connectString: '' // String de conexão formato: endereço_do_host:porta/nome_do_serviço
+};
+
+oracledb.initOracleClient({ libDir: '' }); // Diretório do instant cliente
+~~~
 
 ## Configuração e Uso
 1. Clone o repositório:
-~~~
+~~~bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 ~~~
 2. Navegue até o diretório do projeto:
-~~~
+~~~bash
 cd seu-repositorio
 ~~~
 3. Instale as dependências:
-~~~
-npm install
+~~~bash
+npm install oracledb
 ~~~
 4. Execute os scripts:
 
 - Para executar consultas, use:
-~~~
+~~~bash
 node src/mt-query.js
 ~~~
 - Para inserir dados, use:
-~~~
+~~~bash
 node src/mt-exec.js
 ~~~
 - Para formatar consultas, use:
-~~~
+~~~bash
 node src/f-query.js
 ~~~
 
