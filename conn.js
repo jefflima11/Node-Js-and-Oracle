@@ -1,9 +1,9 @@
 const oracledb = require('oracledb');
 
 const config = {
-  user: 'dbahums',         
-  password: 'hums@lock573',       
-  connectString: '192.168.10.236:1521/sml'
+  user: '',         
+  password: '',       
+  connectString: ''
 };
 
 // Necessário para a versão atual do banco Oracle
