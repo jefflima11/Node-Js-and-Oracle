@@ -1,13 +1,13 @@
 const oracledb = require('oracledb');
 
 const config = {
-  user: '',         
-  password: '',       
-  connectString: ''
+  user: 'dbahums',         
+  password: 'hums@lock573',       
+  connectString: '192.168.10.236:1521/sml'
 };
 
 // Necessário para a versão atual do banco Oracle
-oracledb.initOracleClient({ libDir: '' });
+oracledb.initOracleClient({ libDir: 'C:\\oracle\\instantclient_21_12' });
 
 async function connectToOracle() {
   let connection;
