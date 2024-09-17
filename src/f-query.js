@@ -1,11 +1,11 @@
 // Função que retorna uma consulta SQL formatada
-function formatQuery() {
+function primaryQuery(chooseGroup) {
     return `
         SELECT DISTINCT
             PA.NM_PRESTADOR,
-            'PC: ' || PF.CD_PRO_FAT || ' , PAC: ' || P.NM_PACIENTE || ' , DATA: ' || TO_CHAR(IRF.DT_LANCAMENTO, 'DD/MM/YYYY') DESCRICAO,
+            'PC: ' || PF.CD_PRO_FAT || ' , PAC: ' || P.NM_PACIENTE || ' , DATA: ' || TO_CHAR(IRF.DT_LANCAMENTO, 'DD/MM/YYYY') AS DESCRICAO,
             PF.CD_PRO_FAT,
-            ROWNUM TST,
+            ROWNUM AS TST,
             PA.CD_PRESTADOR
         FROM DBAMV.REG_FAT RF
             INNER JOIN DBAMV.ITREG_FAT IRF ON RF.CD_REG_FAT = IRF.CD_REG_FAT
@@ -18,11 +18,12 @@ function formatQuery() {
             INNER JOIN DBAMV.ATENDIME A ON RF.CD_ATENDIMENTO = A.CD_ATENDIMENTO
             INNER JOIN DBAMV.PACIENTE P ON A.CD_PACIENTE = P.CD_PACIENTE
             INNER JOIN DBAMV.PRO_FAT PF ON IRF.CD_PRO_FAT = PF.CD_PRO_FAT
-        WHERE IRF.CD_PRO_FAT IN (99990135,99990037,99990038,99990039,99990040,99990041,99990042,99990043,99990044,99990045,99990046,99990047,99990048,99990049)
+        WHERE IRF.CD_PRO_FAT IN (${chooseGroup.map(value => `'${value}'`).join(', ')})
         AND PA.CD_ATI_MED = 01
-        AND TO_CHAR(IRF.DT_LANCAMENTO,'MM/YY') = :dtComp
+        AND TO_CHAR(IRF.DT_LANCAMENTO, 'MM/YY') = :dtComp
         AND (:cdPrestador IS NULL OR PA.CD_PRESTADOR = :cdPrestador)
-        AND CA.SN_PRINCIPAL = 'S'`;
+        AND CA.SN_PRINCIPAL = 'S'
+    `;
 }
 
-module.exports = formatQuery;
+module.exports = primaryQuery;
