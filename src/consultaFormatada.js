@@ -1,5 +1,6 @@
 // Função que retorna uma consulta SQL formatada
-function primaryQuery(chooseGroup) {
+
+function consultaPrincipal(proc) {
     return `
         SELECT DISTINCT
             PA.NM_PRESTADOR,
@@ -18,12 +19,12 @@ function primaryQuery(chooseGroup) {
             INNER JOIN DBAMV.ATENDIME A ON RF.CD_ATENDIMENTO = A.CD_ATENDIMENTO
             INNER JOIN DBAMV.PACIENTE P ON A.CD_PACIENTE = P.CD_PACIENTE
             INNER JOIN DBAMV.PRO_FAT PF ON IRF.CD_PRO_FAT = PF.CD_PRO_FAT
-        WHERE IRF.CD_PRO_FAT IN (${chooseGroup.map(value => `'${value}'`).join(', ')})
-        AND PA.CD_ATI_MED = 01
-        AND TO_CHAR(IRF.DT_LANCAMENTO, 'MM/YY') = :dtComp
-        AND (:cdPrestador IS NULL OR PA.CD_PRESTADOR = :cdPrestador)
+        WHERE PA.CD_ATI_MED = 01
+        ${proc}
+        AND TO_CHAR(IRF.DT_LANCAMENTO, 'MM/YY') = :dataCompetencia
+        AND PA.CD_PRESTADOR IN (:codigoPrestador)
         AND CA.SN_PRINCIPAL = 'S'
     `;
 }
 
-module.exports = primaryQuery;
+module.exports = consultaPrincipal;
