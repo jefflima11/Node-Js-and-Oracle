@@ -1,6 +1,6 @@
 // Função que retorna uma consulta SQL formatada
 
-function consultaPrincipal(proc) {
+function consultaPrincipal(procedimentos, codigoPrestador, dataCompetencia) {
     return `
         SELECT DISTINCT
             PA.NM_PRESTADOR,
@@ -20,10 +20,11 @@ function consultaPrincipal(proc) {
             INNER JOIN DBAMV.PACIENTE P ON A.CD_PACIENTE = P.CD_PACIENTE
             INNER JOIN DBAMV.PRO_FAT PF ON IRF.CD_PRO_FAT = PF.CD_PRO_FAT
         WHERE PA.CD_ATI_MED = 01
-        ${proc}
+        ${procedimentos}
         AND TO_CHAR(IRF.DT_LANCAMENTO, 'MM/YY') = :dataCompetencia
         AND PA.CD_PRESTADOR IN (:codigoPrestador)
         AND CA.SN_PRINCIPAL = 'S'
+        ORDER BY 5
     `;
 }
 
